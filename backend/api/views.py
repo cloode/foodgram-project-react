@@ -29,6 +29,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = None
     filter_backends = (IngredientSearchFilter,)
     search_fields = ('$name',)
+    search_param = 'name'
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):

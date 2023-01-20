@@ -36,7 +36,7 @@ class TagSerializerTests(APITestCase):
         которые получаем при отображении тэга по id.
         Доступно не авторизированному пользователю.
         """
-        tag_id_url = self.tag_url + str(self.tag.id) + '/'
+        tag_id_url = f'{self.tag_url}{str(self.tag.id)}/'
         response = self.client.get(path=tag_id_url)
         data = response.json()
         tag_fields = (

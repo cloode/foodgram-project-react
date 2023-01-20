@@ -136,6 +136,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         return attrs
 
+    @transaction.atomic
     def _set_amount_to_ingredient(self, recipe, ingredients):
         for ingredient in ingredients:
             IngredientAmountForRecipe.objects.create(
@@ -219,8 +220,6 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         user = self.context.get('request').user
-        # if not user.is_authenticated:
-        #     return False
         if user.recipe_in_cart.filter(recipe=attrs.get('recipe')).exists():
             raise serializers.ValidationError(
                 {'error': 'Данный рецепт уже добавлен в список покупок.'}

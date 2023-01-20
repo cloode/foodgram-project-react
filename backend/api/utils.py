@@ -15,19 +15,19 @@ class Base64ImageField(ImageField):
         return super().to_internal_value(data)
 
 
-def get_shopping_cart_footer() -> str:
+def get_shopping_cart_footer():
     """Возвращает подвал для вывода списка покупок."""
-    time_format_message: str = 'Список создан в %H:%M от %d/%m/%Y'
-    separate: str = '-' * len(time_format_message)
+    time_format_message = 'Список создан в %H:%M от %d/%m/%Y'
+    separate = '-' * len(time_format_message)
     return separate + '\n' + datetime.now().strftime(time_format_message)
 
 
 def validate_input_value(
-    value: int,
-    field_name: str,
-    error_message: str,
-    limit_value: int = LIMIT_VALUE
-) -> str | int:
+    value,
+    field_name,
+    error_message,
+    limit_value = LIMIT_VALUE
+):
     """
     Валидация вводимого значения.
     Вывод ошибки, в случае выхода за лимит.

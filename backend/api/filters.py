@@ -1,14 +1,5 @@
 from django_filters import rest_framework as filters
 from recipes.models import Recipe
-from rest_framework.filters import SearchFilter
-
-
-class IngredientSearchFilter(SearchFilter):
-    """
-    Добавляет возможность поиска ингредиента
-    по названию, при создании рецепта.
-    """
-    search_param = 'name'
 
 
 class RecipeFilter(filters.FilterSet):
@@ -51,7 +42,6 @@ class RecipeFilter(filters.FilterSet):
             return queryset.filter(
                 author=self.request.user
             )
-        else:
-            return queryset.filter(
-                author__id=value
-            )
+        return queryset.filter(
+            author__id=value
+        )
