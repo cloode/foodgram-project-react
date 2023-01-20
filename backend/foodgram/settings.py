@@ -157,3 +157,5 @@ RESERVED_USERNAME_LIST = (
     'moder',
     'me',
 )
+
+LIMIT_VALUE = 1
