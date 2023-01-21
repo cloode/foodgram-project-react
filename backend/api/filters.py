@@ -28,20 +28,14 @@ class RecipeFilter(filters.FilterSet):
         )
 
     def get_filter_field(self, queryset, name, value):
-        if not value:  # and not self.request.user.is_authenticated:
-            return queryset
-        if name == 'is_favorited':
-            return queryset.filter(
-                favorite__user=self.request.user
-            )
-        if name == 'is_in_shopping_cart':
-            return queryset.filter(
-                shoppingcart__user=self.request.user
-            )
-        if name == 'author' and value == 'me':
-            return queryset.filter(
-                author=self.request.user
-            )
-        return queryset.filter(
-            author__id=value
-        )
+        filter_dict = {
+            'is_favorited':
+                queryset.filter(favorite__user=self.request.user),
+            'is_in_shopping_cart':
+                queryset.filter(shoppingcart__user=self.request.user),
+            'author':
+                queryset.filter(author=self.request.user)
+                if value == 'me' else queryset.filter(author__id=value)
+        }
+
+        return filter_dict[name] if value else queryset
