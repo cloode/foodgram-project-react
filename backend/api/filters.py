@@ -1,9 +1,14 @@
 from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter
+
 from recipes.models import Recipe
 
 
+class IngredientSearchFilter(SearchFilter):
+    search_param = 'name'
+
+
 class RecipeFilter(filters.FilterSet):
-    """Кастомный фильтр для рецептов."""
     author = filters.CharFilter(
         field_name='author',
         method='get_filter_field'
@@ -28,14 +33,21 @@ class RecipeFilter(filters.FilterSet):
         )
 
     def get_filter_field(self, queryset, name, value):
-        filter_dict = {
-            'is_favorited':
-                queryset.filter(favorite__user=self.request.user),
-            'is_in_shopping_cart':
-                queryset.filter(shoppingcart__user=self.request.user),
-            'author':
-                queryset.filter(author=self.request.user)
-                if value == 'me' else queryset.filter(author__id=value)
-        }
-
-        return filter_dict[name] if value else queryset
+        if not value:
+            return queryset
+        if name == 'is_favorited':
+            return queryset.filter(
+                favorite__user=self.request.user
+            )
+        if name == 'is_in_shopping_cart':
+            return queryset.filter(
+                shoppingcart__user=self.request.user
+            )
+        if name == 'author' and value == 'me':
+            return queryset.filter(
+                author=self.request.user
+            )
+        else:
+            return queryset.filter(
+                author__id=value
+            )

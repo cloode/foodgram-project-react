@@ -1,12 +1,15 @@
+from __future__ import annotations
+
 import base64
-from api.conf import LIMIT_VALUE
-from django.utils.timezone import datetime
+
 from django.core.files.base import ContentFile
+from django.utils.timezone import datetime
 from rest_framework.serializers import ImageField, ValidationError
+
+from api.conf import LIMIT_VALUE
 
 
 class Base64ImageField(ImageField):
-    """Декодируем бинарник base64 для передачи в JSON."""
     def to_internal_value(self, data):
         if isinstance(data, str) and data.startswith('data:image'):
             format, imgstr = data.split(';base64,')
@@ -15,23 +18,18 @@ class Base64ImageField(ImageField):
         return super().to_internal_value(data)
 
 
-def get_shopping_cart_footer():
-    """Возвращает подвал для вывода списка покупок."""
-    time_format_message = 'Список создан в %H:%M от %d/%m/%Y'
-    separate = '-' * len(time_format_message)
+def get_shopping_cart_footer() -> str:
+    time_format_message: str = 'Список создан в %H:%M от %d/%m/%Y'
+    separate: str = '-' * len(time_format_message)
     return separate + '\n' + datetime.now().strftime(time_format_message)
 
 
 def validate_input_value(
-    value,
-    field_name,
-    error_message,
-    limit_value = LIMIT_VALUE
-):
-    """
-    Валидация вводимого значения.
-    Вывод ошибки, в случае выхода за лимит.
-    """
+    value: int,
+    field_name: str,
+    error_message: str,
+    limit_value: int = LIMIT_VALUE
+) -> str | int:
     if value < limit_value:
         raise ValidationError({
             field_name: '{} {}.'.format(error_message, limit_value)

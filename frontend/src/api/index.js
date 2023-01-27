@@ -233,13 +233,15 @@ class Api {
 
   getUser ({ id }) {
     const token = localStorage.getItem('token')
+    const authorization = token ? { 'authorization': `Token ${token}` } : {} // добавил
     return fetch(
       `/api/users/${id}/`,
       {
         method: 'GET',
         headers: {
           ...this._headers,
-          'authorization': `Token ${token}`
+          ...authorization // добавил
+          // 'authorization': `Token ${token}` убрал
         }
       }
     ).then(this.checkResponse)
@@ -345,13 +347,15 @@ class Api {
 
   addToOrders ({ id }) {
     const token = localStorage.getItem('token')
+    const authorization = token ? { 'authorization': `Token ${token}` } : {} // добавил
     return fetch(
       `/api/recipes/${id}/shopping_cart/`,
       {
         method: 'POST',
         headers: {
           ...this._headers,
-          'authorization': `Token ${token}`
+          ...authorization
+          // 'authorization': `Token ${token}`
         }
       }
     ).then(this.checkResponse)
@@ -359,13 +363,15 @@ class Api {
 
   removeFromOrders ({ id }) {
     const token = localStorage.getItem('token')
+    const authorization = token ? { 'authorization': `Token ${token}` } : {} // добавил
     return fetch(
       `/api/recipes/${id}/shopping_cart/`,
       {
         method: 'DELETE',
         headers: {
           ...this._headers,
-          'authorization': `Token ${token}`
+          ...authorization
+          // 'authorization': `Token ${token}`
         }
       }
     ).then(this.checkResponse)
@@ -387,13 +393,15 @@ class Api {
 
   downloadFile () {
     const token = localStorage.getItem('token')
+    const authorization = token ? { 'authorization': `Token ${token}` } : {} // добавил
     return fetch(
       `/api/recipes/download_shopping_cart/`,
       {
         method: 'GET',
         headers: {
           ...this._headers,
-          'authorization': `Token ${token}`
+          ...authorization
+          // 'authorization': `Token ${token}`
         }
       }
     ).then(this.checkFileDownloadResponse)
