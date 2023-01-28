@@ -37,7 +37,7 @@ jobs:
         with:
           context: backend/
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/fgbackend:v2.13
+          tags: ${{ secrets.DOCKER_USERNAME }}/backfg:v2.11
 
   build_frontend_and_push_to_docker_hub:
     name: push Docker image for frontend to Docker Hub
@@ -58,7 +58,7 @@ jobs:
         with:
           context: frontend/
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/fgfrontend:v2.13
+          tags: ${{ secrets.DOCKER_USERNAME }}/frontfg:v2.11
 
 
   make_env:
