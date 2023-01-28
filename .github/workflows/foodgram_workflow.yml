@@ -103,10 +103,10 @@ jobs:
             sudo docker compose stop
             sudo docker compose rm web -f
             sudo docker compose rm frontend -f
-            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/fgfrontend
-            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/fgbackend
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/fgbackend:v2.13
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/fgfrontend:v2.13
+            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/frontfg
+            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/backfg
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/backfg:v2.11
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/frontfg:v2.11
             sudo docker compose up -d 
 
   send_message:
