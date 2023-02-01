@@ -1,7 +1,7 @@
-[![Build Status](https://github.com/cloode/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)](https://github.com/ArslanYadov/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
+[![Build Status](https://github.com/cloode/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)](https://github.com/cloode/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
 
 # Foodgram
-Проект доступен по ссылке: [Foodgram](http://51.250.23.25/)
+Проект доступен по ссылке: [Foodgram](http://158.160.26.0/)
 
 ```
 Данные для входа в админку:
@@ -16,7 +16,7 @@
 ```
 ### Request
 ``` bash
-$ curl http://51.250.23.25/api/recipes/
+$ curl http://158.160.26.0/api/recipes/
 ```
 ### Response
 ``` json
